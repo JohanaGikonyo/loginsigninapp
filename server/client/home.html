@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>learning materials</title>
+</head>
+<body>
+    <h2>Welcome</h2>
+    <h3>Thats nice You can access your learning materials now!</h3>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="pdfFile" accept=".pdf">
+        <input type="submit" value="Upload PDF">
+    </form>
+    <script>
+        const pdfList = document.getElementById('pdf-list');
+      
+        // Make an API call to fetch a list of available PDF files
+        fetch('/get-pdfs')
+          .then((response) => response.json())
+          .then((pdfs) => {
+            pdfs.forEach((pdf) => {
+              const link = document.createElement('a');
+              link.href = `/pdfs/${pdf}`;
+              link.textContent = pdf;
+              link.setAttribute('target', '_blank'); // Open in a new tab
+              pdfList.appendChild(link);
+            });
+          });
+      </script>
+      
+      <div id="pdf-list"></div>
+      
+</body>
+</html>
